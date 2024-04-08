@@ -20,6 +20,7 @@ class CrimeListFragment :Fragment() {
         }
 
 
+
     private val crimeListViewModel :CrimeListViewModel by viewModels()
 
 

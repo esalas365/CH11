@@ -1,21 +1,26 @@
 package com.salas.msu.criminalintent
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.salas.msu.criminalintent.databinding.ListItemCrimeBinding
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class CrimeHolder(
     val binding: ListItemCrimeBinding
 ): RecyclerView.ViewHolder(binding.root) {
+    private val dateTextView: TextView = itemView.findViewById(R.id.crime_date) as TextView
 
 
 
     fun bind(crime: Crime) {
         binding.crimeTitle.text = crime.title
         binding.crimeDate.text = crime.date.toString()
-
+        dateTextView.text = SimpleDateFormat("EEEE, LLL d, yyyy", Locale.US).format(crime.date)
 
 
         binding.root.setOnClickListener {
@@ -25,8 +30,15 @@ class CrimeHolder(
                 Toast.LENGTH_SHORT
             ).show()
         }
+
+        binding.crimeSolved.visibility = if (crime.isSolved) {
+            View.VISIBLE
+        } else{
+            View.GONE
+        }
+        }
     }
-}
+
 
 
 class CrimeListAdapter(private val crimes: List<Crime>): RecyclerView.Adapter<CrimeHolder>() {
